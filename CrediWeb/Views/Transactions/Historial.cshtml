@@ -1,0 +1,41 @@
+﻿@using CrediWeb.Models.Entities
+@model List<TarjetaCredito>
+@{
+    ViewData["Title"] = "Historial de Transacciones";
+}
+<div class="text-center">
+    <div class="container container-fluid mt-3">
+        <div class="row col-12 px-0 mx-0">
+            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                <form id="form-consultar-tarjeta" method="post" enctype="multipart/form-data">
+                    <div class="form-group d-flex">
+                        <label for="Tarjeta" class="col-form-label mx-2">Tarjeta:</label>
+                        <select class="form-control col-6" id="Tarjeta">
+                            <option value="0">Selecccione Tarjeta</option>
+                            @foreach (var tarjeta in Model)
+                            {
+                                <option value="@tarjeta.TarjetaID">@tarjeta.NumeroTarjeta</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-success mx-3" id="btn-realizar-consulta">Realizar Consulta</button>
+                    </div>                    
+                </form>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                <h2 class="float-right">Transacciones</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="tabla-transacciones">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/scripts/Transacciones.js"></script>
+    <script>       
+        var urlGetTransaccionesTarjeta = '@Url.Action("GetTransaccionesTarjeta", "Transactions")';
+    </script>
+}

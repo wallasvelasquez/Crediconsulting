@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Titulares";
+}
+<div class="text-center">
+    <div class="container container-fluid mt-3">
+        <div class="row col-12 px-0 mx-0">
+            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                <button class="btn btn-success float-left" id="btn-new-titular" data-toggle="modal" data-target="#ModalTitular">Nuevo Titular</button>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                <h2 class="float-right">Titulares</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="tabla-titulares">                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalTitular" tabindex="-1" role="dialog" aria-labelledby="ModalNewTitular" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Nuevo Titular</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form-nuevo-titular" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="Nombres" class="col-form-label">Nombres:</label>
+                        <input type="text" class="form-control" id="Nombres" name="Nombres" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Apellidos" class="col-form-label">Apellidos:</label>
+                        <input type="text" class="form-control" id="Apellidos" name="Apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Correo" class="col-form-label">Correo:</label>
+                        <input type="email" class="form-control" id="Correo" name="Correo" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success" id="btn-crear-titular">Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/scripts/Titulares.js"></script>
+    <script>
+        var urlNewTitular = '@Url.Action("AddTitular", "Maintenance")';
+        var urlGetTitulares = '@Url.Action("GetTitulares", "Maintenance")';        
+    </script>
+}

@@ -1,0 +1,70 @@
+﻿@using CrediWeb.Models.Entities
+@model List<TarjetaCredito>
+@{
+    ViewData["Title"] = "Compras";
+}
+<div class="text-center">
+    <div class="container container-fluid mt-3">
+        <div class="row col-12 px-0 mx-0">
+            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                <button class="btn btn-success float-left" id="btn-new-compra" data-toggle="modal" data-target="#ModalCompra">Nueva Compra</button>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 px-0">
+                <h2 class="float-right">Compras</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="tabla-compras">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCompra" tabindex="-1" role="dialog" aria-labelledby="ModalNewCompra" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Nueva Compra</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form-nueva-compra" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Tarjeta" class="col-form-label">Tarjeta:</label>
+                        <select class="form-control" id="Tarjeta" required>
+                            <option value="0">Selecccione Tarjeta</option>
+                            @foreach (var tarjeta in Model)
+                            {
+                                <option value="@tarjeta.TarjetaID">@tarjeta.NumeroTarjeta</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Descripcion" class="col-form-label">Descripcion:</label>
+                        <input type="text" class="form-control" id="Descripcion" name="Descripcion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Monto" class="col-form-label">Monto: $</label>
+                        <input type="text" class="form-control" id="Monto" name="Monto" inputmode="decimal" pattern="^\d{1,10}(\.\d{1,2})?$" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" maxlength="13" required>
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success" id="btn-realizar-compra">Realizar Compra</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/scripts/Compras.js"></script>
+    <script>
+        var urlNewCompra = '@Url.Action("AddCompra", "Transactions")';
+        var urlGetCompras = '@Url.Action("GetCompras", "Transactions")';
+    </script>
+}
+

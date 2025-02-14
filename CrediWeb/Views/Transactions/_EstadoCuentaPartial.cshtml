@@ -1,0 +1,78 @@
+﻿@using CrediWeb.Models.ViewModels
+@model EstadoCuentaPorTarjetaViewModel
+<div class="Container col-sm-12 col-md-12 col-lg-12 mx-0 px-0">
+    <table class="table table-bordered bg-white mb-0" width="100%" style="border-bottom:0 !important;">
+        <tbody>
+            <tr>
+                <th scope="row" class="align-middle" width="5%" style="border:0! important;"><img src="~/images/AdminLTELogo.png" alt="logo" height="60" width="60" /></th>
+                <td class="align-middle px-10" style="border:0! important;"><h2>Estado de Cuenta de Tarjeta de Credito</h2></td>
+            </tr>
+        </tbody>
+    </table>   
+    <table class="table table-bordered bg-white" width="100%">
+        <tbody style="border:0 !important;">
+            <tr>
+                <td style="text-align: justify; padding: 10px;">
+                    <table class="table-borderless">
+                        <tr><td><strong>No. Tarjeta:</strong> @Model.EstadoCuentaTarjeta.NumeroTarjeta</td></tr>
+                        <tr><td><strong>Titular:</strong> @Model.EstadoCuentaTarjeta.Titular</td></tr>
+                        <tr><td><strong>Limite de Credito:</strong> $@Model.EstadoCuentaTarjeta.LimiteCredito</td></tr>
+                        <tr><td><strong>Interes Configurable (%):</strong> @Model.EstadoCuentaTarjeta.PorcentajeInteresConfigurable%</td></tr>
+                        <tr><td><strong>Saldo Mínimo (%):</strong> @Model.EstadoCuentaTarjeta.PorcentajeConfigurableSaldoMinimo%</td></tr>
+                    </table>
+                </td>
+                <td style="text-align: justify; padding: 10px;">
+                    <table class="table-borderless">
+                        <tr><td><strong>Saldo Actual: </strong> $@Model.EstadoCuentaTarjeta.SaldoActual</td></tr>
+                        <tr><td><strong>Saldo Disponible: </strong> $@Model.EstadoCuentaTarjeta.SaldoDisponible</td></tr>
+                        <tr><td><strong>Interes Bonificable ($): </strong> $@Model.EstadoCuentaTarjeta.InteresBonificable</td></tr>
+                        <tr><td><strong>Cuota Minima: </strong> $@Model.EstadoCuentaTarjeta.CuotaMinima</td></tr>
+                        <tr><td><strong>Monto Total Mes Actual: </strong> $@Model.EstadoCuentaTarjeta.MontoTotalMesActual</td></tr>
+                        <tr><td><strong>Monto Total Mes Anterior: </strong> $@Model.EstadoCuentaTarjeta.MontoTotalMesAnterior</td></tr>
+                        <tr><td><strong>Monto ToTal + Intereses: </strong> $@Model.EstadoCuentaTarjeta.MontoTotalContadoInteres </td></tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+        <tbody style="border-top:0 !important;">
+            <tr>
+                <th colspan="2"><h4>Compras Realizadas</h4></th>
+            </tr>
+        </tbody>
+        <tbody style="border:0 !important;">
+            <tr>
+                <td colspan="2" style="border: 0 !important; padding: 0px !important; margin: 0 !important;">
+                    @if (Model.ComprasMensuales.Count > 0)
+                    {
+                        <table class="table bg-white table bg-white mb-0 mt-0 table-borderless" width="100%">
+                            <thead>                                
+                                <tr>
+                                    <th>Descripcion</th>
+                                    <th>Monto</th>
+                                    <th>Fecha Movimiento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ComprasMensuales)
+                                {
+                                    <tr>
+                                        <td>@item.Descripcion</td>
+                                        <td>$@item.Monto</td>
+                                        <td>@item.FechaMovimiento.ToString("yyyy-MM-dd")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <h5>No Hay Compras Registradas con esta tarjeta.</h5>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row mt-2 mb-3 col-12">        
+        <a href="@Url.Action("GenerarEstadoCuentaPDF", "Transactions", new { TarjetaID = ViewBag.Tarjeta })" class="btn btn-success" id="btn-generar-pdf"> Descargar Estado</a>
+    </div>
+</div>
